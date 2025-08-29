@@ -50,6 +50,9 @@ const medusaConfig = {
     disable: SHOULD_DISABLE_ADMIN,
   },
   modules: [
+    { key: 'fashion',
+    resolve: fashionModule,
+    options: {}},
     {
       key: Modules.FILE,
       resolve: '@medusajs/file',
