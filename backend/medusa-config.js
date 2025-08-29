@@ -132,12 +132,7 @@ const medusaConfig = {
           },
         ],
       },
-    }] : []),
-    {
-    key: 'fashion',
-    resolve: fashionModule,
-    options: {}
-  }
+    }] : [])
   ],
   plugins: [
   ...(MEILISEARCH_HOST && MEILISEARCH_ADMIN_KEY ? [{
