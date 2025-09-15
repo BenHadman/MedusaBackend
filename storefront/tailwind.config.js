@@ -21,20 +21,74 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
-        grey: {
-          0: "#FFFFFF",
-          5: "#F9FAFB",
-          10: "#F3F4F6",
-          20: "#E5E7EB",
-          30: "#D1D5DB",
-          40: "#9CA3AF",
-          50: "#6B7280",
-          60: "#4B5563",
-          70: "#374151",
-          80: "#1F2937",
-          90: "#111827",
-        },
-      },
+  accent: {
+    brand: 'hsl(var(--accent-brand))',
+    main: {
+      '000': 'hsl(var(--accent-main-000))',
+      '100': 'hsl(var(--accent-main-100))',
+      '200': 'hsl(var(--accent-main-200))',
+      '900': 'hsl(var(--accent-main-900))',
+    },
+    pro: {
+      '000': 'hsl(var(--accent-pro-000))',
+      '100': 'hsl(var(--accent-pro-100))',
+      '200': 'hsl(var(--accent-pro-200))',
+      '900': 'hsl(var(--accent-pro-900))',
+    },
+    secondary: {
+      '000': 'hsl(var(--accent-secondary-000))',
+      '100': 'hsl(var(--accent-secondary-100))',
+      '200': 'hsl(var(--accent-secondary-200))',
+      '900': 'hsl(var(--accent-secondary-900))',
+    },
+  },
+
+  bg: {
+    '000': 'hsl(var(--bg-000))',
+    '100': 'hsl(var(--bg-100))',
+    '200': 'hsl(var(--bg-200))',
+    '300': 'hsl(var(--bg-300))',
+    '400': 'hsl(var(--bg-400))',
+    '500': 'hsl(var(--bg-500))',
+  },
+
+  border: {
+    '100': 'hsl(var(--border-100))',
+    '200': 'hsl(var(--border-200))',
+    '300': 'hsl(var(--border-300))',
+    '400': 'hsl(var(--border-400))',
+  },
+
+  danger: {
+    '000': 'hsl(var(--danger-000))',
+    '100': 'hsl(var(--danger-100))',
+    '200': 'hsl(var(--danger-200))',
+    '900': 'hsl(var(--danger-900))',
+  },
+
+  oncolor: {
+    '100': 'hsl(var(--oncolor-100))',
+    '200': 'hsl(var(--oncolor-200))',
+    '300': 'hsl(var(--oncolor-300))',
+  },
+
+  success: {
+    '000': 'hsl(var(--success-000))',
+    '100': 'hsl(var(--success-100))',
+    '200': 'hsl(var(--success-200))',
+    '900': 'hsl(var(--success-900))',
+  },
+
+  text: {
+    '000': 'hsl(var(--text-000))',
+    '100': 'hsl(var(--text-100))',
+    '200': 'hsl(var(--text-200))',
+    '300': 'hsl(var(--text-300))',
+    '400': 'hsl(var(--text-400))',
+    '500': 'hsl(var(--text-500))',
+  },
+}
+,
       borderRadius: {
         none: "0px",
         soft: "2px",
