@@ -58,19 +58,26 @@ module.exports = {
       fontSize: {
         "3xl": "2rem",
       },
-      fontFamily: {
-        sans: [
-          "Mona Sans",
-          "Domine",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "Helvetica Neue",
-          "Ubuntu",
-          "sans-serif",
-        ],
-      },
+fontFamily: {
+      // Use Mona Sans for Tailwind's `font-sans`
+      sans: [
+        "Mona Sans",
+        "Inter",
+        "-apple-system",
+        "BlinkMacSystemFont",
+        "Segoe UI",
+        "Roboto",
+        "Helvetica Neue",
+        "Ubuntu",
+        "sans-serif",
+      ],
+      // Use Domine for Tailwind's `font-serif`
+      serif: [
+        "Domine",
+        "Georgia",
+        "serif",
+      ],
+    },
       keyframes: {
         ring: {
           "0%": { transform: "rotate(0deg)" },
