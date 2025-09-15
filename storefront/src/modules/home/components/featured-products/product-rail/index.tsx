@@ -86,15 +86,6 @@ export default function ProductRail({
         </div>
       </div>
 
-      {/* Optional: keep a grid beneath the rail (comment out if you want rail-only) */}
- 
-      <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-24 small:gap-y-36 mt-8">
-        {products.map((product) => (
-          <li key={product.id}>
-            <ProductPreview product={product as any} region={region} isFeatured />
-          </li>
-        ))}
-      </ul>
      
     </div>
   )
