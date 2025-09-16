@@ -7,7 +7,7 @@ const Layout: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
   return (
-    <div>
+    <div className="bg-bg-000 text-text-200">
       <Nav />
       <main className="relative">{children}</main>
       <Footer />
