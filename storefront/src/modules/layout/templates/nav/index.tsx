@@ -11,23 +11,23 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-      {/* Header background + border mapped to tokens */}
-      <header className="relative h-16 mx-auto border-b duration-200 bg-bg-000 border-border-200">
-        <nav className="content-container txt-xsmall-plus text-text-300 flex items-center justify-between w-full h-full text-small-regular">
+      {/* Paper-like translucent header */}
+      <header className="relative h-16 mx-auto border-b duration-200 bg-bg-000/90 backdrop-blur border-border-200">
+        <nav className="content-container txt-xsmall-plus text-text-300 flex items-center justify-between w-full h-full">
           <div className="flex-1 basis-0 h-full flex items-center">
             <div className="h-full">
               <SideMenu regions={regions} />
             </div>
           </div>
 
-          {/* Brand link */}
+          {/* Brand */}
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus uppercase text-text-100 hover:text-accent-main-200"
+              className="txt-compact-xlarge-plus uppercase tracking-[0.16em] text-text-100 hover:text-accent-main-200"
               data-testid="nav-store-link"
             >
-              Pace Print co.
+              Pace Print Co.
             </LocalizedClientLink>
           </div>
 
@@ -36,7 +36,7 @@ export default async function Nav() {
             <div className="hidden small:flex items-center gap-x-6 h-full">
               {process.env.NEXT_PUBLIC_FEATURE_SEARCH_ENABLED && (
                 <LocalizedClientLink
-                  className="text-text-300 hover:text-accent-main-200"
+                  className="hover:text-accent-main-200 underline underline-offset-4 decoration-border-300"
                   href="/search"
                   scroll={false}
                   data-testid="nav-search-link"
@@ -45,7 +45,7 @@ export default async function Nav() {
                 </LocalizedClientLink>
               )}
               <LocalizedClientLink
-                className="text-text-300 hover:text-accent-main-200"
+                className="hover:text-accent-main-200 underline underline-offset-4 decoration-border-300"
                 href="/account"
                 data-testid="nav-account-link"
               >
@@ -57,7 +57,7 @@ export default async function Nav() {
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="text-text-300 hover:text-accent-main-200 flex gap-2"
+                  className="flex gap-2 hover:text-accent-main-200 underline underline-offset-4 decoration-border-300"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
