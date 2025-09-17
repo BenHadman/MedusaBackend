@@ -110,3 +110,21 @@
     @apply text-[32px] leading-[44px] font-semibold;
   }
 }
+
+/* Selection & focus feel */
+::selection { background: hsl(var(--accent-main-000)); color: hsl(var(--text-100)); }
+
+/* Native inputs */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: hsl(var(--accent-main-200));
+}
+
+/* Optional: shared underline helper */
+.a-underline {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: hsl(var(--border-300));
+}
+.a-underline:hover { text-decoration-color: hsl(var(--accent-main-200)); }
+
