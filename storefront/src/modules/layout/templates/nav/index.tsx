@@ -13,14 +13,14 @@ export default async function Nav() {
     <div className="sticky top-0 inset-x-0 z-50 group">
       {/* Paper-like translucent header */}
       <header className="relative h-16 mx-auto border-b duration-200 bg-bg-000/90 backdrop-blur border-border-200">
-        <nav className="content-container txt-xsmall-plus text-text-300 flex items-center justify-between w-full h-full">
+        <nav className="content-container txt-xsmall-plus text-text-300 flex items-center justify-between w-full h-full text-small-regular">
           <div className="flex-1 basis-0 h-full flex items-center">
             <div className="h-full">
               <SideMenu regions={regions} />
             </div>
           </div>
 
-          {/* Brand */}
+          {/* Brand link */}
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
@@ -57,7 +57,7 @@ export default async function Nav() {
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="flex gap-2 hover:text-accent-main-200 underline underline-offset-4 decoration-border-300"
+                  className="text-text-300 hover:text-accent-main-200 flex gap-2 underline underline-offset-4 decoration-border-300"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
