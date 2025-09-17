@@ -1,114 +1,89 @@
 "use client"
 
-import { clx } from "@medusajs/ui"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { clx } from "@medusajs/ui"
 
-export function Pagination({
-  page,
-  totalPages,
-  'data-testid': dataTestid
-}: {
+type Props = {
   page: number
   totalPages: number
-  'data-testid'?: string
-}) {
+  className?: string
+  "data-testid"?: string
+}
+
+export function Pagination({ page, totalPages, className, ...rest }: Props) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  // Helper function to generate an array of numbers within a range
-  const arrayRange = (start: number, stop: number) =>
-    Array.from({ length: stop - start + 1 }, (_, index) => start + index)
-
-  // Function to handle page changes
-  const handlePageChange = (newPage: number) => {
-    const params = new URLSearchParams(searchParams)
-    params.set("page", newPage.toString())
+  const setPage = (n: number) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("page", String(n))
     router.push(`${pathname}?${params.toString()}`)
   }
 
-  // Function to render a page button
-  const renderPageButton = (
-    p: number,
-    label: string | number,
-    isCurrent: boolean
-  ) => (
-    <button
-      key={p}
-      className={clx("txt-xlarge-plus text-ui-fg-muted", {
-        "text-ui-fg-base hover:text-ui-fg-subtle": isCurrent,
-      })}
-      disabled={isCurrent}
-      onClick={() => handlePageChange(p)}
-    >
-      {label}
-    </button>
-  )
+  if (totalPages <= 1) return null
 
-  // Function to render ellipsis
-  const renderEllipsis = (key: string) => (
-    <span
-      key={key}
-      className="txt-xlarge-plus text-ui-fg-muted items-center cursor-default"
-    >
-      ...
-    </span>
-  )
+  const MAX = 7
+  const pages: (number | "...")[] = []
+  const add = (n: number) => pages.push(n)
 
-  // Function to render page buttons based on the current page and total pages
-  const renderPageButtons = () => {
-    const buttons = []
-
-    if (totalPages <= 7) {
-      // Show all pages
-      buttons.push(
-        ...arrayRange(1, totalPages).map((p) =>
-          renderPageButton(p, p, p === page)
-        )
-      )
-    } else {
-      // Handle different cases for displaying pages and ellipses
-      if (page <= 4) {
-        // Show 1, 2, 3, 4, 5, ..., lastpage
-        buttons.push(
-          ...arrayRange(1, 5).map((p) => renderPageButton(p, p, p === page))
-        )
-        buttons.push(renderEllipsis("ellipsis1"))
-        buttons.push(
-          renderPageButton(totalPages, totalPages, totalPages === page)
-        )
-      } else if (page >= totalPages - 3) {
-        // Show 1, ..., lastpage - 4, lastpage - 3, lastpage - 2, lastpage - 1, lastpage
-        buttons.push(renderPageButton(1, 1, 1 === page))
-        buttons.push(renderEllipsis("ellipsis2"))
-        buttons.push(
-          ...arrayRange(totalPages - 4, totalPages).map((p) =>
-            renderPageButton(p, p, p === page)
-          )
-        )
-      } else {
-        // Show 1, ..., page - 1, page, page + 1, ..., lastpage
-        buttons.push(renderPageButton(1, 1, 1 === page))
-        buttons.push(renderEllipsis("ellipsis3"))
-        buttons.push(
-          ...arrayRange(page - 1, page + 1).map((p) =>
-            renderPageButton(p, p, p === page)
-          )
-        )
-        buttons.push(renderEllipsis("ellipsis4"))
-        buttons.push(
-          renderPageButton(totalPages, totalPages, totalPages === page)
-        )
-      }
+  if (totalPages <= MAX) {
+    for (let i = 1; i <= totalPages; i++) add(i)
+  } else {
+    const show = new Set([1, 2, totalPages - 1, totalPages, page, page - 1, page + 1])
+    const sorted = [...show].filter((n) => n >= 1 && n <= totalPages).sort((a, b) => a - b)
+    for (let i = 0; i < sorted.length; i++) {
+      const cur = sorted[i]
+      const prev = sorted[i - 1]
+      if (prev && cur - prev > 1) pages.push("...")
+      pages.push(cur)
     }
-
-    return buttons
   }
 
-  // Render the component
   return (
-    <div className="flex justify-center w-full mt-12">
-      <div className="flex gap-3 items-end" data-testid={dataTestid}>{renderPageButtons()}</div>
-    </div>
+    <nav
+      className={clx("mt-10 flex items-center justify-center gap-2 text-sm", className)}
+      {...rest}
+    >
+      <button
+        onClick={() => setPage(Math.max(1, page - 1))}
+        disabled={page === 1}
+        className="px-3 py-2 rounded-large border border-border-200 disabled:opacity-40 hover:border-accent-main-200"
+        aria-label="Previous page"
+      >
+        Prev
+      </button>
+
+      {pages.map((p, i) =>
+        p === "..." ? (
+          <span key={`gap-${i}`} className="px-2 text-text-400">…</span>
+        ) : (
+          <button
+            key={p}
+            onClick={() => setPage(p as number)}
+            aria-current={p === page ? "page" : undefined}
+            className={clx(
+              "min-w-[2.25rem] h-9 px-3 rounded-large border",
+              p === page
+                ? "border-accent-main-200 bg-accent-main-200 text-oncolor-100"
+                : "border-border-200 hover:border-accent-main-200"
+            )}
+          >
+            {p}
+          </button>
+        )
+      )}
+
+      <button
+        onClick={() => setPage(Math.min(totalPages, page + 1))}
+        disabled={page === totalPages}
+        className="px-3 py-2 rounded-large border border-border-200 disabled:opacity-40 hover:border-accent-main-200"
+        aria-label="Next page"
+      >
+        Next
+      </button>
+    </nav>
   )
 }
+
+export default Pagination
