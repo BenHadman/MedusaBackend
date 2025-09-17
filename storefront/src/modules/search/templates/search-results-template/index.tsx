@@ -25,16 +25,16 @@ const SearchResultsTemplate = ({
 
   return (
     <>
-      <div className="flex justify-between border-b w-full py-6 px-8 small:px-14 items-center">
+      <div className="flex justify-between border-b border-border-200 w-full py-6 px-8 small:px-14 items-center bg-bg-100">
         <div className="flex flex-col items-start">
-          <Text className="text-ui-fg-muted">Search Results for:</Text>
-          <Heading>
+          <Text className="text-text-300">Search Results for:</Text>
+          <Heading className="font-serif text-text-100">
             {decodeURI(query)} ({ids.length})
           </Heading>
         </div>
         <LocalizedClientLink
           href="/store"
-          className="txt-medium text-ui-fg-subtle hover:text-ui-fg-base"
+          className="txt-medium text-text-300 hover:text-accent-main-200 underline underline-offset-4 decoration-border-300"
         >
           Clear
         </LocalizedClientLink>
@@ -53,7 +53,7 @@ const SearchResultsTemplate = ({
             </div>
           </>
         ) : (
-          <Text className="ml-8 small:ml-14 mt-3">No results.</Text>
+          <Text className="ml-8 small:ml-14 mt-3 text-text-300">No results.</Text>
         )}
       </div>
     </>
