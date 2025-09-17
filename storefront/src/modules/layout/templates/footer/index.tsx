@@ -27,7 +27,9 @@ export default async function Footer() {
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
             {product_categories && product_categories?.length > 0 && (
               <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus text-text-100">Categories</span>
+                <span className="txt-small-plus text-text-100">
+                  Categories
+                </span>
                 <ul
                   className="grid grid-cols-1 gap-2"
                   data-testid="footer-categories"
@@ -83,7 +85,9 @@ export default async function Footer() {
             )}
             {collections && collections.length > 0 && (
               <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus text-text-100">Collections</span>
+                <span className="txt-small-plus text-text-100">
+                  Collections
+                </span>
                 <ul
                   className={clx(
                     "grid grid-cols-1 gap-2 text-text-300 txt-small",
