@@ -1,33 +1,44 @@
-import { ArrowUpRightMini } from "@medusajs/icons"
-import { Text } from "@medusajs/ui"
-import LocalizedClientLink from "../localized-client-link"
+import * as React from "react"
+import { clx } from "@medusajs/ui"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
-type InteractiveLinkProps = {
+type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string
-  children?: React.ReactNode
-  onClick?: () => void
+  underline?: "soft" | "none"
+  className?: string
+  children: React.ReactNode
 }
 
-const InteractiveLink = ({
+/** Default export used as InteractiveLink/UnderlineLink */
+export default function UnderlineLink({
   href,
+  underline = "soft",
+  className,
   children,
-  onClick,
-  ...props
-}: InteractiveLinkProps) => {
+  ...rest
+}: Props) {
+  const base =
+    "transition-colors underline underline-offset-4 decoration-border-300 hover:text-accent-main-200 hover:decoration-accent-main-200"
+  const noUnderline = "hover:text-accent-main-200"
+
+  const classes = clx(
+    "text-current",
+    underline === "soft" ? base : noUnderline,
+    className
+  )
+
+  const isInternal = href?.startsWith("/")
+  if (isInternal) {
+    return (
+      <LocalizedClientLink href={href} className={classes} {...rest}>
+        {children}
+      </LocalizedClientLink>
+    )
+  }
+
   return (
-    <LocalizedClientLink
-      className="flex gap-x-1 items-center group"
-      href={href}
-      onClick={onClick}
-      {...props}
-    >
-      <Text className="text-ui-fg-interactive">{children}</Text>
-      <ArrowUpRightMini
-        className="group-hover:rotate-45 ease-in-out duration-150"
-        color="var(--fg-interactive)"
-      />
-    </LocalizedClientLink>
+    <a href={href} className={classes} target="_blank" rel="noreferrer" {...rest}>
+      {children}
+    </a>
   )
 }
-
-export default InteractiveLink
