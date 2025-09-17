@@ -14,7 +14,6 @@ export default function SearchModal() {
   const router = useRouter()
   const searchRef = useRef(null)
 
-  // close modal on outside click
   const handleOutsideClick = (event: MouseEvent) => {
     if (event.target === searchRef.current) {
       router.back()
@@ -23,14 +22,12 @@ export default function SearchModal() {
 
   useEffect(() => {
     window.addEventListener("click", handleOutsideClick)
-    // cleanup
     return () => {
       window.removeEventListener("click", handleOutsideClick)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // disable scroll on body when modal is open
   useEffect(() => {
     document.body.style.overflow = "hidden"
     return () => {
@@ -38,7 +35,6 @@ export default function SearchModal() {
     }
   }, [])
 
-  // on escape key press, close modal
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -46,8 +42,6 @@ export default function SearchModal() {
       }
     }
     window.addEventListener("keydown", handleEsc)
-
-    // cleanup
     return () => {
       window.removeEventListener("keydown", handleEsc)
     }
@@ -56,18 +50,16 @@ export default function SearchModal() {
 
   return (
     <div className="relative z-[75]">
-      <div className="fixed inset-0 bg-opacity-75 backdrop-blur-md opacity-100 h-screen w-screen" />
+      {/* soft paper-glass overlay */}
+      <div className="fixed inset-0 bg-bg-000/70 backdrop-blur-sm opacity-100 h-screen w-screen" />
       <div className="fixed inset-0 px-5 sm:p-0" ref={searchRef}>
         <div className="flex flex-col justify-start w-full h-fit transform p-5 items-center text-left align-middle transition-all max-h-[75vh] bg-transparent shadow-none">
-          <InstantSearch
-            indexName={SEARCH_INDEX_NAME}
-            searchClient={searchClient}
-          >
+          <InstantSearch indexName={SEARCH_INDEX_NAME} searchClient={searchClient}>
             <div
               className="flex absolute flex-col h-fit w-full sm:w-fit"
               data-testid="search-modal-container"
             >
-              <div className="w-full flex items-center gap-x-2 p-4 bg-[rgba(3,7,18,0.5)] text-ui-fg-on-color backdrop-blur-2xl rounded-rounded">
+              <div className="w-full flex items-center gap-x-2 p-4 bg-bg-100 text-text-100 border border-border-200 rounded-large shadow-sm">
                 <MagnifyingGlassMini />
                 <SearchBox />
               </div>
