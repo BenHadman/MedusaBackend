@@ -1,52 +1,38 @@
-import { Container, Text } from "@medusajs/ui"
-
-import Thumbnail from "@modules/products/components/thumbnail"
+import Image from "next/image"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import { HttpTypes } from "@medusajs/types"
-
-export type ProductHit = {
-  id: string
-  title: string
-  handle: string
-  description: string | null
-  thumbnail: string | null
-  variants: HttpTypes.StoreProductVariant[]
-  collection_handle: string | null
-  collection_id: string | null
-}
 
 type HitProps = {
-  hit: ProductHit
+  hit: {
+    id?: string
+    handle?: string
+    title?: string
+    thumbnail?: string
+    collection?: { title?: string }
+  }
 }
 
-const Hit = ({ hit }: HitProps) => {
+export default function Hit({ hit }: HitProps) {
+  const href = hit?.handle ? `/products/${hit.handle}` : "#"
   return (
     <LocalizedClientLink
-      href={`/products/${hit.handle}`}
-      data-testid="search-result"
+      href={href}
+      className="flex items-center gap-3 p-2 rounded-large hover:bg-bg-100 border border-transparent hover:border-border-200"
     >
-      <Container
-        key={hit.id}
-        className="flex sm:flex-col gap-2 w-full p-4 shadow-elevation-card-rest hover:shadow-elevation-card-hover items-center sm:justify-center"
-      >
-        <Thumbnail
-          thumbnail={hit.thumbnail}
-          size="square"
-          className="group h-12 w-12 sm:h-full sm:w-full"
+      {hit?.thumbnail && (
+        <Image
+          src={hit.thumbnail}
+          width={64}
+          height={80}
+          alt={hit?.title || "Product"}
+          className="rounded-base object-cover border border-border-200"
         />
-        <div className="flex flex-col justify-between group">
-          <div className="flex flex-col">
-            <Text
-              className="text-ui-fg-subtle"
-              data-testid="search-result-title"
-            >
-              {hit.title}
-            </Text>
-          </div>
-        </div>
-      </Container>
+      )}
+      <div className="min-w-0">
+        {hit?.collection?.title && (
+          <div className="text-xs text-text-400">{hit.collection.title}</div>
+        )}
+        <div className="truncate font-serif text-text-100">{hit?.title}</div>
+      </div>
     </LocalizedClientLink>
   )
 }
-
-export default Hit
